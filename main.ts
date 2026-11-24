@@ -15,8 +15,15 @@ const outputPath = join(outputDir, "entry.txt");
 
 // The gate wants 1-200 Unicode code points, one line, not only whitespace.
 // Fail loudly instead of writing an invalid entry.
+const MAX_CHARS = 200;
 const length = [...LINE].length;
-if (length < 1 || length > 200 || LINE.includes("\n") || LINE.trim().length === 0) {
+if (
+  length < 1 ||
+  length > MAX_CHARS ||
+  LINE.includes("\n") ||
+  LINE.trim() !== LINE ||
+  LINE.trim().length === 0
+) {
   throw new Error(`line is not a valid one-line entry (length ${length})`);
 }
 
